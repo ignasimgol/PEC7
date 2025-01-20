@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../services/user.service'; // Importa el servicio UserService
-import { Router } from '@angular/router'; // Para redirigir después del login
+import { AuthService } from '../guards/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,7 @@ import { Router } from '@angular/router'; // Para redirigir después del login
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -20,19 +20,13 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      // Llama al servicio de login
-      this.userService.login(this.loginForm.value).subscribe({
-        next: (response) => {
-          console.log('Login successful', response);
-          // Guardar token de autenticación en UserStore
-          this.userService.storeToken(response.token);
-          // Redirigir al usuario después de iniciar sesión
-          this.router.navigate(['/articles']);
-        },
-        error: (err) => {
-          console.error('Error during login', err);
-        }
-      });
+      const { username, password } = this.loginForm.value;
+      if (this.authService.login(username, password)) {
+        console.log('Login successful');
+        this.router.navigate(['/article/list']);  
+      } else {
+        console.log('Login failed');
+      }
     } else {
       console.log('Form not valid');
     }

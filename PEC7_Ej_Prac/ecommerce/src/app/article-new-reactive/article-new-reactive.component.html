@@ -23,17 +23,17 @@
           "
         >
           <div *ngIf="article.get('name').errors?.['required']">
-            Wine name is required
+            article name is required
           </div>
           <div *ngIf="article.get('name').errors?.['wineNameValid']">
-            Wine name is invalid
+            article name is invalid
           </div>
         </div>
         <div>
           <input
             type="number"
             name="price"
-            placeholder="Wine Price"
+            placeholder="Article Price"
             formControlName="price"
           />
         </div>
