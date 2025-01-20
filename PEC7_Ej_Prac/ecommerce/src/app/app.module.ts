@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';  // Importación para el interceptor
 import { RouterModule, Routes } from '@angular/router'; // Importación para las rutas
 
 import { AppComponent } from './app.component';
@@ -13,6 +13,13 @@ import { ImageArticlePipe } from './pipes/image-article.pipe';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component'; // Asegúrate de importar ArticleDetailComponent
+
+// Importar los servicios
+import { UserService } from './services/user.service';
+import { UserStoreService } from './services/user-store.service';
+
+// Importar el interceptor
+import { ArticleAppInterceptor } from './interceptors/article-app.interceptor';
 
 // Definición de las rutas
 const routes: Routes = [
@@ -43,7 +50,15 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)  // Configuración del RouterModule
   ],
-  providers: [],
+  providers: [
+    UserService,  // Proveedor del servicio de usuario
+    UserStoreService,  // Proveedor del servicio de almacenamiento del usuario
+    {
+      provide: HTTP_INTERCEPTORS,  // Añadir el interceptor para manejar el token
+      useClass: ArticleAppInterceptor, 
+      multi: true  // Permitir múltiples interceptores
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../services/user.service'; // Importa el servicio UserService
+import { Router } from '@angular/router'; // Para redirigir después del registro
 
 @Component({
   selector: 'app-register',
@@ -9,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -18,9 +20,20 @@ export class RegisterComponent {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      console.log('Register successful', this.registerForm.value);
+      // Llama al servicio de registro
+      this.userService.register(this.registerForm.value).subscribe({
+        next: (response) => {
+          console.log('Register successful', response);
+          // Redirigir a la página de login después del registro
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          console.error('Error during registration', err);
+        }
+      });
     } else {
       console.log('Form not valid');
     }
   }
 }
+

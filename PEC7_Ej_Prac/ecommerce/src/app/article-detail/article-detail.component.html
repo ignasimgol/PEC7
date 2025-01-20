@@ -3,7 +3,6 @@
     <img [src]="article.imageUrl" alt="{{ article.title }}">
     <p>{{ article.price }} €</p>
   
-    <!-- Mostrar mensaje según si está en oferta o no -->
     <p *ngIf="article.isOnSale; else notOnSale">On Sale!</p>
     <ng-template #notOnSale>
       <p>Not On Sale</p>
