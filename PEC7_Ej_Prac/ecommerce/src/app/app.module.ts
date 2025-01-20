@@ -25,10 +25,10 @@ import { ArticleAppInterceptor } from './interceptors/article-app.interceptor';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'articles', component: ArticleListComponent }, // Ruta para la lista de artículos
-  { path: 'articles/:id', component: ArticleDetailComponent }, // Ruta para el detalle del artículo
-  { path: 'new-article', component: ArticleNewReactiveComponent }, // Ruta para el nuevo artículo reactivo
-  { path: '', redirectTo: '/login', pathMatch: 'full' } // Redirección predeterminada
+  { path: 'article/list', component: ArticleListComponent },
+  { path: 'articles/:id', component: ArticleDetailComponent }, 
+  { path: 'article/create', component: ArticleNewReactiveComponent }, 
+  { path: '', redirectTo: '/login', pathMatch: 'full' } 
 ];
 
 @NgModule({
@@ -41,22 +41,22 @@ const routes: Routes = [
     ImageArticlePipe,
     LoginComponent,
     RegisterComponent,
-    ArticleDetailComponent  // Declara ArticleDetailComponent
+    ArticleDetailComponent  
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)  // Configuración del RouterModule
+    RouterModule.forRoot(routes)  
   ],
   providers: [
-    UserService,  // Proveedor del servicio de usuario
-    UserStoreService,  // Proveedor del servicio de almacenamiento del usuario
+    UserService,  
+    UserStoreService,  
     {
-      provide: HTTP_INTERCEPTORS,  // Añadir el interceptor para manejar el token
+      provide: HTTP_INTERCEPTORS,  
       useClass: ArticleAppInterceptor, 
-      multi: true  // Permitir múltiples interceptores
+      multi: true  
     }
   ],
   bootstrap: [AppComponent]
