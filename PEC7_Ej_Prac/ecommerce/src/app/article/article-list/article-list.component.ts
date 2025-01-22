@@ -4,8 +4,8 @@ import { debounceTime, switchMap,
   distinctUntilChanged, startWith, merge,
   share } from 'rxjs/operators';
 
-import { Article } from "src/app/models/article";
-import { ArticleQuantityChange } from "src/app/models/article-quantity-change";
+import { Article } from "src/app/article/models/article";
+import { ArticleQuantityChange } from "src/app/article/models/article-quantity-change";
 import { ArticleService } from 'src/app/services/article.service';
 
 

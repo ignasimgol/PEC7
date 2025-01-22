@@ -1,7 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { Article } from "src/app/models/article";
+import { Article } from "../models/article";
 import { NameArticleValidator } from 'src/app/validators/name-article-validator';
 import { ArticleService } from 'src/app/services/article.service';
 

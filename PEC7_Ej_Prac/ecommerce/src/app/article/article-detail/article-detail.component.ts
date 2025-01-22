@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ArticleService } from '../services/article.service';  // Supongamos que tienes un servicio para artículos
+import { ArticleService } from '../../services/article.service';  // Supongamos que tienes un servicio para artículos
 
 @Component({
   selector: 'app-article-detail',
