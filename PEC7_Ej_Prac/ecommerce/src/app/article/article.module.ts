@@ -8,11 +8,11 @@ import { ArticleNewReactiveComponent } from './article-new-reactive/article-new-
 import { ArticleItemComponent } from './article-item/article-item.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { ImageArticlePipe } from '../pipes/image-article.pipe';
-import { AuthGuard } from '../guards/auth.guard';  // Importación del AuthGuard
+import { AuthGuard } from '../guards/auth.guard';  
 
 const routes: Routes = [
   { path: 'list', component: ArticleListComponent },
-  { path: 'create', component: ArticleNewReactiveComponent, canActivate: [AuthGuard] },  // Protección con AuthGuard
+  { path: 'create', component: ArticleNewReactiveComponent, canActivate: [AuthGuard] },  
   { path: ':id', component: ArticleDetailComponent }
 ];
 
@@ -30,7 +30,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  providers: [AuthGuard]  // Agregar el guard como proveedor, si es necesario
+  providers: [AuthGuard] 
 })
 export class ArticleModule { }
 
